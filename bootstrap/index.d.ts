@@ -1,0 +1,181 @@
+/// <reference path="./fast.d.ts" />
+import { View } from "../view";
+declare namespace JSX {
+    interface IIntrinsicElements {
+        [elemName: string]: any;
+    }
+}
+declare type eventEmitterCb = <T>(options: {
+    eventName: string;
+    callback: (e: Partial<T>) => void;
+}) => void;
+declare type requestType = {
+    type: string;
+    payload: {
+        [key: string]: any;
+    };
+    error: boolean;
+    info: string;
+};
+export interface IAction<T> {
+    [key: string]: IActionType<T> | any;
+    $updateModel: (data: T) => T;
+    router: {
+        go: (viewName: string) => void;
+        back: () => void;
+        block: (callback: () => void) => void;
+        destoryBlock: () => void;
+    };
+    model: {
+        setState: (state: T) => void;
+        setObjectState: (state: T) => void;
+    };
+    saveSessionState: () => void;
+    historyStack: {
+        destory: () => void;
+    };
+    eventEmitter: {
+        emit: <T>(options: {
+            eventName: string;
+        } & T) => void;
+        on: eventEmitterCb;
+        once: eventEmitterCb;
+    };
+    preload: {
+        startLoading: (options: {
+            manifest: Array<{
+                id: string;
+                src: string;
+            }>;
+            complete: () => void;
+            error: () => void;
+        }) => void;
+    };
+    container: {
+        modify: (injectKey: {
+            [key: string]: any;
+        }) => any;
+    };
+    jsbridge: {
+        back: (options?: {
+            step: number;
+        }) => void;
+        refresh: () => void;
+        go: (options: {
+            title?: string;
+            uri: string;
+            locktype?: 0 | 1 | 2;
+        }) => void;
+        push: (options: {
+            title?: string;
+            uri: string;
+            locktype?: 0 | 1 | 2;
+        }) => void;
+        willAppear: (callback: () => void) => void;
+        navigationBar: (options: {
+            title: string;
+            type?: number;
+            rightButtonTitle?: string;
+            onRightButtonPress?: () => void;
+            isShowBackButton?: boolean;
+        }) => void;
+        notify: <T>(options: {
+            type: string;
+        } & T) => void;
+        subscribe: (options: {
+            type: string;
+            callback: (data: requestType) => void;
+        }) => void;
+        request: (options: {
+            type: string;
+            payload?: requestType;
+            success?: (response: any) => void;
+            error?: (err: any) => void;
+        }) => void;
+    };
+}
+export interface IBaseModelType<T> {
+    previous: T;
+    historyStack: {
+        step: number;
+    };
+    jsbridge: {
+        isFromWeiXin: boolean;
+        isFromApp: boolean;
+    };
+}
+export interface IActionType<T> {
+    (model: T & IBaseModelType<T>, data: any, actions: IAction<T>, error: any): T;
+}
+export interface IReadiesType<T> {
+    (model: T & IBaseModelType<T>, actions: IAction<T>, error: any): void;
+}
+export interface IHooksType<T> {
+    onAction?: (actions: IAction<T>, data: any) => void;
+    onUpdate?: (oldModel: T & IBaseModelType<T>, newModel: T & IBaseModelType<T>, data: any) => void;
+    onRender?: (model: T & IBaseModelType<T>, view: JSX.IIntrinsicElements[] | JSX.IIntrinsicElements) => void;
+    onError?: (error: any) => void;
+    onPageInit?: (e: any, pageId: string, $page: any, actions: IAction<T>, model: T & IBaseModelType<T>) => void;
+    onPageWillDisappear?: (e: any, pageId: string, $page: any, actions: IAction<T>, model: T & IBaseModelType<T>) => void;
+    onPageWillAppear?: (e: any, pageId: string, $page: any, actions: IAction<T>, model: T & IBaseModelType<T>) => void;
+    onPageDidAppear?: (e: any, pageId: string, $page: any, actions: IAction<T>, model: T & IBaseModelType<T>) => void;
+}
+declare type Constructor<T> = new (...args: any[]) => T;
+export declare abstract class Bootstrap<T> {
+    protected rootId: string;
+    /**
+     * 配置默认的Mutations
+     */
+    private readonly defaultMutations;
+    /**
+     * 配置默认的view
+     */
+    private readonly defaultView;
+    /**
+     * 由上层传输过来的注入mutations
+     */
+    private mutations;
+    /**
+     * 默认插件列表
+     */
+    private readonly defaultPlugins;
+    constructor();
+    /**
+     * 设置接口对应的具体实现类
+     */
+    protected registerContainer(): {
+        [key: string]: new () => void;
+    };
+    private configDefaultMutations;
+    /**
+     * 定义数据状态模型类型
+     * 注：这里并不返回交叉类型
+     */
+    protected abstract setModel(): T;
+    /**
+     * 设置额外的mutations函数
+     */
+    protected setMutations(): {
+        [key: string]: IActionType<T>;
+    };
+    /**
+     * 设置views
+     */
+    protected setViews(): {
+        [key: string]: (JSX.IIntrinsicElements[] | JSX.IIntrinsicElements) & Constructor<View>;
+    };
+    /**
+     * 设置readies函数
+     */
+    protected setRedies(): IReadiesType<T>[];
+    protected setHooks(): IHooksType<T>;
+    start(mutations: {
+        [key: string]: IActionType<T>;
+    }): void;
+    /**
+     * 使用插件
+     * @param plugin 插件
+     */
+    use(plugin: any): this;
+}
+export {};

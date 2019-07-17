@@ -1,0 +1,23 @@
+{
+  "name": "fastman",
+  "version": "0.0.1",
+  "description": "a hybrid app framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crixusshen/fastman.git"
+  },
+  "keywords": [
+    "virtual",
+    "dom"
+  ],
+  "author": "shenzhiwei",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/crixusshen/fastman/issues"
+  },
+  "homepage": "https://github.com/crixusshen/fastman#readme"
+}
