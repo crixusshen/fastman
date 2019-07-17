@@ -1,6 +1,6 @@
 {
-  "name": "fastman",
-  "version": "0.0.1",
+  "name": "fastman2",
+  "version": "0.0.2",
   "description": "a hybrid app framework",
   "main": "index.js",
   "scripts": {
@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/crixusshen/fastman/issues"
   },
-  "homepage": "https://github.com/crixusshen/fastman#readme"
+  "homepage": "https://github.com/crixusshen/fastman#readme",
+  "devDependencies": {
+    "@types/node": "^12.6.6",
+    "@types/zepto": "^1.0.30"
+  }
 }

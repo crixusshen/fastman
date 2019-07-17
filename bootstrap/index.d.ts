@@ -1,4 +1,4 @@
-/// <reference path="./fast.d.ts" />
+/// <reference path="./bootstrap/fast.d.ts" />
 import { View } from "../view";
 declare namespace JSX {
     interface IIntrinsicElements {

@@ -8,31 +8,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 /*
  * @Author: shenzhiwei
  * @Date: 2019-07-06 14:11:25
  * @LastEditors: shenzhiwei
- * @LastEditTime: 2019-07-17 09:35:48
+ * @LastEditTime: 2019-07-17 10:28:09
  * @Description: 基础启动程序
  */
 /// <reference path="./fast.d.ts" />
 var coreman_1 = require("fastman/coreman");
 var annotationman_1 = require("fastman/annotationman");
 var coreman_2 = require("fastman/coreman");
-// require("fastman/domman");
-// require("fastman/scrollman");
-// require("fastman/modalman");
-// import { JsBridge } from "common/jsbridge";
-var defaultView_1 = __importDefault(require("./defaultView"));
 var Bootstrap = /** @class */ (function () {
     function Bootstrap() {
         this.rootId = "page-group";
         this.defaultMutations = this.configDefaultMutations();
-        this.defaultView = { defaultFastView: defaultView_1.default };
+        // this.defaultView = { defaultFastView };
+        this.defaultView = {};
         this.defaultPlugins = [
             coreman_1.Router,
             // JsBridge,
@@ -88,9 +81,9 @@ var Bootstrap = /** @class */ (function () {
             return props["viewFrom"] === "FastmanBaseView";
         };
         var _views = this.setViews();
-        _views = Object.getOwnPropertyNames(_views).length > 0 ? _views : {
-            "/": this.defaultView.defaultFastView
-        };
+        // _views = Object.getOwnPropertyNames(_views).length > 0 ? _views : {
+        //   "/": this.defaultView.defaultFastView
+        // };
         Object.keys(_views).forEach(function (key) {
             try {
                 var cInstance = new _views[key]();
