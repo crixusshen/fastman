@@ -1,4 +1,4 @@
-/// <reference path="./fast.d.ts" />
+/// <reference path="fast.d.ts" />
 import { View } from "../view";
 declare namespace JSX {
     interface IIntrinsicElements {
@@ -102,6 +102,9 @@ export interface IBaseModelType<T> {
     jsbridge: {
         isFromWeiXin: boolean;
         isFromApp: boolean;
+    };
+    preload: {
+        results: string[];
     };
 }
 export interface IActionType<T> {

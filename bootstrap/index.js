@@ -10,10 +10,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @Author: shenzhiwei
  * @Date: 2019-07-06 14:11:25
  * @LastEditors: shenzhiwei
- * @LastEditTime: 2019-07-17 10:49:38
+ * @LastEditTime: 2019-07-18 11:35:29
  * @Description: 基础启动程序
  */
-/// <reference path="./fast.d.ts" />
+/// <reference path="../../libs/bootstrap/fast.d.ts" />
 var coreman_1 = require("fastman/coreman");
 var annotationman_1 = require("fastman/annotationman");
 var coreman_2 = require("fastman/coreman");
