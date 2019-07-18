@@ -6,13 +6,20 @@ A Hybird APP Framework From Orient Securities Company
 
 ## Change Log
 
-### v2.0.0 (2019/07/11)
-- 全新架构，全新模式，全新设计理念，从现在起开发者可以开始拥抱V2       
+### v2.0.2 (2019/07/18)
+- 主仓库编译后代码今后统一由npm进行管理，项目托管地址：[https://www.npmjs.com/package/fastman2](https://www.npmjs.com/package/fastman2)
+- 修复了TerserPlugin默认设置mangle参数导致打包失败的缺陷
+- 修复了打包splitChunk策略错误的缺陷
+- 基础库开始支持一键打包
+- 新增包的自动检测和更新工具
 
 ### v2.0.1 (2019/07/16)
 - 对部分命名空间的命名做了更为语义化的调整，以及部分文件目录结构做了调整
 - 调整mutation的构建方式
 - 增加component、plugin和js-sdk的类型声明文件(d.ts)，现在开发者可直接通过IDE智能识别各种API语法
+
+### v2.0.0 (2019/07/11)
+- 全新架构，全新模式，全新设计理念，从现在起开发者可以开始拥抱V2       
 
 ### v1.2.0 (2019/06/26)
 - 打包模式全新升级，代码执行效率提升20%   
