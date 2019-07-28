@@ -9,11 +9,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /*
  * @Author: shenzhiwei
  * @Date: 2019-07-06 14:11:25
- * @LastEditors: shenzhiwei
- * @LastEditTime: 2019-07-18 11:35:29
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-07-28 15:54:33
  * @Description: 基础启动程序
  */
 /// <reference path="../../libs/bootstrap/fast.d.ts" />
+var OfflinePluginRuntime = require("offline-plugin/runtime");
+OfflinePluginRuntime.install({
+    onInstalled: function () {
+        console.log("[sw]:onInstalled");
+    },
+    onUpdating: function () {
+        console.log("[sw]:onUpdating");
+    },
+    onUpdateReady: function () {
+        OfflinePluginRuntime.applyUpdate();
+        console.log("[sw]:onUpdateReady");
+    },
+    onUpdated: function () {
+        console.log("[sw]:onUpdated");
+        location.reload();
+    }
+});
 var coreman_1 = require("fastman/coreman");
 var annotationman_1 = require("fastman/annotationman");
 var coreman_2 = require("fastman/coreman");

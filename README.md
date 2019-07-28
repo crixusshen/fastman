@@ -6,6 +6,16 @@ A Hybird APP Framework From Orient Securities Company
 
 ## Change Log
 
+### v2.1.2 (NEXT)
+- 支持PWA的AppShell架构
+- 支持PWA的预加载
+
+### v2.1.1 (2019/07/26)
+- 这是一项革命性并且令人振奋的版本更新，从2.1.0开始开发者可以全面拥抱 PWA 这项新技术，从现在起你的 webapp 可以像 原生app 一样实现秒开、消息推送、动态热更新等，甚至在后面的版本我们还将支持AppShell以及预加载，同时为了兼顾不支持的设备，仍然使用ApplicationCache来实现兼容 [[see it]](../tools/pwa.html)
+- 新增标准化工具:fastman-cli，开发者可使用它来快速构建项目结构、mutation和effect，项目托管地址：[https://github.com/crixusshen/fastman-cli](https://github.com/crixusshen/fastman-cli) [[see it]](../tools/ncu.html)
+- 替换rem插件包，使用更优的策略
+- 对构建参数做了优化，目前每次修改代码保存整个编译耗时维持在毫秒级别
+
 ### v2.0.2 (2019/07/18)
 - 主仓库编译后代码今后统一由npm进行管理，项目托管地址：[https://www.npmjs.com/package/fastman2](https://www.npmjs.com/package/fastman2)
 - 修复了TerserPlugin默认设置mangle参数导致打包失败的缺陷
