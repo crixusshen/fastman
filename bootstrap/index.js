@@ -32,9 +32,6 @@ OfflinePluginRuntime.install({
 var coreman_1 = require("fastman/coreman");
 var annotationman_1 = require("fastman/annotationman");
 var coreman_2 = require("fastman/coreman");
-// T-Model
-// K-EffectType of Developers
-// S-MutationType of Developers
 var Bootstrap = /** @class */ (function () {
     function Bootstrap() {
         this.rootId = "page-group";

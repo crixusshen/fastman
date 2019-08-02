@@ -128,7 +128,7 @@ export interface IHooksType<T> {
     onPageDidAppear?: (e: any, pageId: string, $page: any, actions: IAction<T> & IEffect<T> & IMutation<T>, model: T & IBaseModelType<T>) => void;
 }
 declare type Constructor<T> = new (...args: any[]) => T;
-export declare abstract class Bootstrap<T, K, S> {
+export declare abstract class Bootstrap<T> {
     protected rootId: string;
     /**
      * 配置默认的Mutations

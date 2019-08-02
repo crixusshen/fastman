@@ -8,5 +8,7 @@ export interface IView<T> {
 }
 export interface IProps<T> {
     model?: T;
-    actions?: any;
+    actions?: (IAction<T> & IEffect<T> & IMutation<T>) & {
+        [key: string]: any;
+    };
 }
