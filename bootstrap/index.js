@@ -9,8 +9,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /*
  * @Author: shenzhiwei
  * @Date: 2019-07-06 14:11:25
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-07-28 15:54:33
  * @Description: 基础启动程序
  */
 /// <reference path="../../libs/bootstrap/fast.d.ts" />
@@ -34,6 +32,9 @@ OfflinePluginRuntime.install({
 var coreman_1 = require("fastman/coreman");
 var annotationman_1 = require("fastman/annotationman");
 var coreman_2 = require("fastman/coreman");
+// T-Model
+// K-EffectType of Developers
+// S-MutationType of Developers
 var Bootstrap = /** @class */ (function () {
     function Bootstrap() {
         this.rootId = "page-group";

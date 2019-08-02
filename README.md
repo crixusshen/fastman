@@ -6,9 +6,11 @@ A Hybird APP Framework From Orient Securities Company
 
 ## Change Log
 
-### v2.1.2 (NEXT)
-- 支持PWA的AppShell架构
-- 支持PWA的预加载
+### v2.2.1 (NEXT)
+- 单元测试
+
+### v2.2.0 (2019/08/02)
+- 现在effect和mutation函数支持类型检查，但是它是可选的
 
 ### v2.1.1 (2019/07/26)
 - 这是一项革命性并且令人振奋的版本更新，从2.1.0开始开发者可以全面拥抱 PWA 这项新技术，从现在起你的 webapp 可以像 原生app 一样实现秒开、消息推送、动态热更新等，甚至在后面的版本我们还将支持AppShell以及预加载，同时为了兼顾不支持的设备，仍然使用ApplicationCache来实现兼容 [[see it]](../tools/pwa.html)
