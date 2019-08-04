@@ -32,6 +32,9 @@ OfflinePluginRuntime.install({
 var coreman_1 = require("fastman/coreman");
 var annotationman_1 = require("fastman/annotationman");
 var coreman_2 = require("fastman/coreman");
+// T - Model Type
+// E - Effect Type
+// M - Mutation Type
 var Bootstrap = /** @class */ (function () {
     function Bootstrap() {
         this.rootId = "page-group";

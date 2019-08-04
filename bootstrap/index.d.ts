@@ -111,24 +111,24 @@ export interface IBaseModelType<T> {
         results: string[];
     };
 }
-export interface IMutationType<T> {
-    (model: T & IBaseModelType<T>, data: any, actions: IMutation<T>, error: any): T;
+export interface IMutationType<T, M = {}> {
+    (model: T & IBaseModelType<T>, data: any, actions: IMutation<T> & M, error: any): T;
 }
-export interface IReadiesType<T> {
-    (model: T & IBaseModelType<T>, actions: IAction<T> & IEffect<T> & IMutation<T>, error: any): void;
+export interface IReadiesType<T, E = {}, M = {}> {
+    (model: T & IBaseModelType<T>, actions: IAction<T> & IEffect<T> & IMutation<T> & E & M, error: any): void;
 }
-export interface IHooksType<T> {
-    onAction?: (actions: IAction<T> & IEffect<T> & IMutation<T>, data: any) => void;
+export interface IHooksType<T, E = {}, M = {}> {
+    onAction?: (actions: IAction<T> & IEffect<T> & IMutation<T> & E & M, data: any) => void;
     onUpdate?: (oldModel: T & IBaseModelType<T>, newModel: T & IBaseModelType<T>, data: any) => void;
     onRender?: (model: T & IBaseModelType<T>, view: JSX.IIntrinsicElements[] | JSX.IIntrinsicElements) => void;
     onError?: (error: any) => void;
-    onPageInit?: (e: any, pageId: string, $page: any, actions: IAction<T> & IEffect<T> & IMutation<T>, model: T & IBaseModelType<T>) => void;
-    onPageWillDisappear?: (e: any, pageId: string, $page: any, actions: IAction<T> & IEffect<T> & IMutation<T>, model: T & IBaseModelType<T>) => void;
-    onPageWillAppear?: (e: any, pageId: string, $page: any, actions: IAction<T> & IEffect<T> & IMutation<T>, model: T & IBaseModelType<T>) => void;
-    onPageDidAppear?: (e: any, pageId: string, $page: any, actions: IAction<T> & IEffect<T> & IMutation<T>, model: T & IBaseModelType<T>) => void;
+    onPageInit?: (e: any, pageId: string, $page: any, actions: IAction<T> & IEffect<T> & IMutation<T> & E & M, model: T & IBaseModelType<T>) => void;
+    onPageWillDisappear?: (e: any, pageId: string, $page: any, actions: IAction<T> & IEffect<T> & IMutation<T> & E & M, model: T & IBaseModelType<T>) => void;
+    onPageWillAppear?: (e: any, pageId: string, $page: any, actions: IAction<T> & IEffect<T> & IMutation<T> & E & M, model: T & IBaseModelType<T>) => void;
+    onPageDidAppear?: (e: any, pageId: string, $page: any, actions: IAction<T> & IEffect<T> & IMutation<T> & E & M, model: T & IBaseModelType<T>) => void;
 }
 declare type Constructor<T> = new (...args: any[]) => T;
-export declare abstract class Bootstrap<T> {
+export declare abstract class Bootstrap<T, E = {}, M = {}> {
     protected rootId: string;
     /**
      * 配置默认的Mutations
@@ -163,7 +163,7 @@ export declare abstract class Bootstrap<T> {
      * 设置额外的mutations函数
      */
     protected setMutations(): {
-        [key: string]: IMutationType<T>;
+        [key: string]: IMutationType<T, M>;
     };
     /**
      * 设置views
@@ -174,10 +174,10 @@ export declare abstract class Bootstrap<T> {
     /**
      * 设置readies函数
      */
-    protected setRedies(): IReadiesType<T>[];
-    protected setHooks(): IHooksType<T>;
+    protected setRedies(): IReadiesType<T, E, M>[];
+    protected setHooks(): IHooksType<T, E, M>;
     start(mutations: {
-        [key: string]: IMutationType<T>;
+        [key: string]: IMutationType<T, M>;
     }): void;
     /**
      * 使用插件
