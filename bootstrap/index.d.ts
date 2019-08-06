@@ -158,7 +158,7 @@ export declare abstract class Bootstrap<T, E = {}, M = {}> {
      * 定义数据状态模型类型
      * 注：这里并不返回交叉类型
      */
-    protected abstract setModel(): T;
+    protected abstract setModel(): Readonly<T>;
     /**
      * 设置额外的mutations函数
      */
