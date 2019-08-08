@@ -7,4 +7,99 @@
  *  * ============================================================
  * 
  */
-!function(o,n){"object"==typeof exports&&"object"==typeof module?module.exports=n():"function"==typeof define&&define.amd?define([],n):"object"==typeof exports?exports.fastman=n():o.fastman=n()}(this,function(){return webpackJsonpfastman([30],{198:function(o,n,e){o.exports=e(76)},76:function(o,n,e){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var t=e(11),a=document.createElement("div");n.default=function(o){var n,e,l,c=o;c=c||[],c.length>0&&!$.isArray(c[0])&&(c=[c]);for(var i,d="",s=0;s<c.length;s++)for(var r=0;r<c[s].length;r++){0===r&&(d+='<div class="actions-modal-group">');var f=c[s][r],u=f.label?"actions-modal-label":"actions-modal-button";f.bold&&(u+=" actions-modal-button-bold"),f.color&&(u+=" color-"+f.color),f.bg&&(u+=" bg-"+f.bg),f.disabled&&(u+=" disabled"),d+='<span class="'+u+'">'+f.text+"</span>",r===c[s].length-1&&(d+="</div>")}return i='<div class="actions-modal">'+d+"</div>",a.innerHTML=i,n=$(a).children(),$(t.defaults.modalContainer).append(n[0]),e=".actions-modal-group",l=".actions-modal-button",n.find(e).each(function(o,e){var a=o;$(e).children().each(function(o,e){var i,d=o,s=c[a][d];$(e).is(l)&&(i=$(e)),i&&i.on("click",function(o){!1!==s.close&&(0,t.closeModal)(n),s.onClick&&s.onClick(n,o)})})}),(0,t.openModal)(n),n[0]}}},[198])});
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["fastman"] = factory();
+	else
+		root["fastman"] = factory();
+})(this, function() {
+return webpackJsonpfastman([30],{
+
+/***/ 199:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(77);
+
+
+/***/ }),
+
+/***/ 77:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _modal = __webpack_require__(11);
+
+var _modalTemplateTempDiv = document.createElement('div');
+
+// 从下往上需要在Element上添加"actions-modal"样式
+/**
+ * Created by dfzq on 2017/3/21.
+ */
+
+exports.default = function (buttons) {
+    var params = buttons;
+
+    var modal, groupSelector, buttonSelector;
+    params = params || [];
+
+    if (params.length > 0 && !$.isArray(params[0])) {
+        params = [params];
+    }
+    var modalHTML;
+    var buttonsHTML = '';
+    for (var i = 0; i < params.length; i++) {
+        for (var j = 0; j < params[i].length; j++) {
+            if (j === 0) buttonsHTML += '<div class="actions-modal-group">';
+            var button = params[i][j];
+            var buttonClass = button.label ? 'actions-modal-label' : 'actions-modal-button';
+            if (button.bold) buttonClass += ' actions-modal-button-bold';
+            if (button.color) buttonClass += ' color-' + button.color;
+            if (button.bg) buttonClass += ' bg-' + button.bg;
+            if (button.disabled) buttonClass += ' disabled';
+            buttonsHTML += '<span class="' + buttonClass + '">' + button.text + '</span>';
+            if (j === params[i].length - 1) buttonsHTML += '</div>';
+        }
+    }
+    modalHTML = '<div class="actions-modal">' + buttonsHTML + '</div>';
+    _modalTemplateTempDiv.innerHTML = modalHTML;
+    modal = $(_modalTemplateTempDiv).children();
+    $(_modal.defaults.modalContainer).append(modal[0]);
+    groupSelector = '.actions-modal-group';
+    buttonSelector = '.actions-modal-button';
+
+    var groups = modal.find(groupSelector);
+    groups.each(function (index, el) {
+        var groupIndex = index;
+        $(el).children().each(function (index, el) {
+            var buttonIndex = index;
+            var buttonParams = params[groupIndex][buttonIndex];
+            var clickTarget;
+            if ($(el).is(buttonSelector)) clickTarget = $(el);
+            // if (toPopover && $(el).find(buttonSelector).length > 0) clickTarget = $(el).find(buttonSelector);
+
+            if (clickTarget) {
+                clickTarget.on('click', function (e) {
+                    if (buttonParams.close !== false) (0, _modal.closeModal)(modal);
+                    if (buttonParams.onClick) buttonParams.onClick(modal, e);
+                });
+            }
+        });
+    });
+    (0, _modal.openModal)(modal);
+    return modal[0];
+};
+
+/***/ })
+
+},[199]);
+});

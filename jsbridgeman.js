@@ -7,4 +7,606 @@
  *  * ============================================================
  * 
  */
-!function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports.fastman=t():e.fastman=t()}(this,function(){return function(e){function t(o){if(n[o])return n[o].exports;var i=n[o]={i:o,l:!1,exports:{}};return e[o].call(i.exports,i,i.exports,t),i.l=!0,i.exports}var n={};return t.m=e,t.c=n,t.i=function(e){return e},t.d=function(e,n,o){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:o})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=17)}({1:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var o=function(e){var t=document.createElement("a");t.setAttribute("href",e);var n=t.href;return t=null,n},i=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var o in n)Object.prototype.hasOwnProperty.call(n,o)&&(e[o]=n[o])}return e},r=function(e){return!(null!=e&&(e.length||e.length>0))};t.getAbsoluteUrl=o,t._extends=i,t.isEmpty=r},17:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.onApiRequest=t.pageWillAppear=t.onRequest=t.onDynamicLink=t.subscribeNotify=t.onNotify=t.onPushView=t.onNavigationBar=t.onRefresh=t.onBack=t.ready=t.wrapNotOkPayload=t.wrapOkPayload=void 0;var o=n(1),i=n(8),r=navigator.userAgent,a=r.match(/(Android);?[\s\/]+([\d.]+)?/),f=r.match(/(iPad).*OS\s([\d_]+)/),c=r.match(/(iPod)(.*OS\s([\d_]+))?/),s=!f&&r.match(/(iPhone\sOS)\s([\d_]+)/),l=!!r.toLowerCase().match(/DFYJ/i),u=function(e){return e.init(function(e,t){t&&t(data)}),e},d=function(e){var t=function(t){(0,i.log)("ready end"),e(t)};if(l)if(f||s||c){if(window.WebViewJavascriptBridge)return(0,i.log)("ready sync start"),t(WebViewJavascriptBridge);if((0,i.log)("ready async start(push)"),window.WVJBCallbacks)return window.WVJBCallbacks.push(t);(0,i.log)("ready async start(iframe)"),window.WVJBCallbacks=[t];var n=document.createElement("iframe");n.style.display="none",n.src="https://__bridge_loaded__",document.documentElement.appendChild(n),setTimeout(function(){document.documentElement.removeChild(n)},0)}else a?window.WebViewJavascriptBridge?((0,i.log)("ready sync start"),t(u(WebViewJavascriptBridge))):((0,i.log)("ready async start"),document.addEventListener("WebViewJavascriptBridgeReady",function(){t(u(WebViewJavascriptBridge))},!1)):((0,i.log)("other platform ready sync start"),t());else(0,i.log)("non app ready sync start"),t()},p=function(){},y=function(){return arguments.length>0&&void 0!==arguments[0]?arguments[0]:{}},g=function(){return{code:arguments.length>0&&void 0!==arguments[0]?arguments[0]:-1,info:arguments.length>1&&void 0!==arguments[1]?arguments[1]:"error"}},v=function(e){var t={complete:p};t=(0,o._extends)({},t,e),(0,i.log)("onBack->"+JSON.stringify(t)),WebViewJavascriptBridge.callHandler("back",t,function(e){(0,i.log)("onBack<-"+JSON.stringify(e)),t.complete(e)})},b=function(e){var t={complete:p};t=(0,o._extends)({},t,e),(0,i.log)("onRefresh->"+JSON.stringify(t)),WebViewJavascriptBridge.callHandler("refresh",t,function(e){(0,i.log)("onRefresh<-"+JSON.stringify(e)),t.complete(e)})},J=function(e){var t={complete:p};t=(0,o._extends)({},t,e),(0,i.log)("onNavigationBar->"+JSON.stringify(t)),WebViewJavascriptBridge.callHandler("navigationBar",t,function(e){(0,i.log)("onNavigationBar<-"+JSON.stringify(e)),t.complete(e)})},w=function(e){var t={title:""};t=(0,o._extends)({},t,e),t.uri&&(-1!=t.uri.indexOf("http")||-1!=t.uri.indexOf("https")||(t.uri=(0,o.getAbsoluteUrl)(t.uri))),(0,i.log)("onPushView->"+JSON.stringify(t)),WebViewJavascriptBridge.callHandler("pushView",t,function(e){(0,i.log)("onPushView<-"+JSON.stringify(e))})},m=function(e){"function"==typeof e&&WebViewJavascriptBridge.registerHandler("pageWillAppear",e)},O=function(e){var t={type:"javascriptNotify"};t=(0,o._extends)({},t,e),(0,i.log)("onNotify->"+JSON.stringify(t)),WebViewJavascriptBridge.callHandler("notify",t,function(e){(0,i.log)("onNotify<-"+JSON.stringify(e))})},N={},h=function(e,t){if("function"==typeof t){N[e]=t;var n=e;"sae_video"==n&&(n="notify"),(0,i.log)("subscribeNotify->"+e),WebViewJavascriptBridge.registerHandler(n,function(e){(0,i.log)("subscribeNotify<-"+JSON.stringify(e)),N[n]&&N[n](e)})}},B=function(e){var t={url:""};t=(0,o._extends)({},t,e),(0,i.log)("onDynamicLink->"+JSON.stringify(t)),WebViewJavascriptBridge.callHandler("dynamicLink",t,function(e){(0,i.log)("onDynamicLink<-"+JSON.stringify(e))})},k={},S=!1,V=function(e,t,n,o){var r={type:e||"1",payload:t||{}};k[e+"-ok"]="function"==typeof n?n:p,k[e+"-notok"]="function"==typeof o?o:p,(0,i.log)("onRequest->"+JSON.stringify(r)),WebViewJavascriptBridge.callHandler("request",r,function(t){"string"==typeof t&&(t=JSON.parse(t)),(0,i.log)("onRequest<-"+JSON.stringify(t)),t.error||"true"===t.error?"function"==typeof o&&k[e+"-notok"](g(-1,t.info)):"function"==typeof n&&(f||s||c||t.payload)&&k[e+"-ok"](y(t.payload))}),S||(WebViewJavascriptBridge.registerHandler("request",function(t){"string"==typeof t&&(t=JSON.parse(t)),t.error||"true"===t.error?"function"==typeof k[e+"-notok"]&&k[e+"-notok"](g(-1,t.info)):"function"==typeof k[e+"-ok"]&&k[e+"-ok"](y(t.payload))}),S=!0)},_=function(e,t,n,r){if((0,o.isEmpty)(e))throw new Error("functionNo is required ...");var a={funcId:e,payload:t||{}};(0,i.log)("onApiRequest->"+JSON.stringify(a)),WebViewJavascriptBridge.callHandler("apiRequest",a,function(e){if((0,i.log)("onApiRequest<-"+JSON.stringify(e)),"string"==typeof e&&(e=JSON.parse(e)),f||s||c){if(e.error||"true"===e.error)e.payload?"function"==typeof r&&r(g(e.payload.code,e.payload.info)):"function"==typeof r&&r(g(-1,e.info));else if("function"==typeof n){var t={};e.payload&&(t="string"==typeof e.payload.data?JSON.parse(e.payload.data):e.payload.data),n(y(t))}}else if(e.error||"true"===e.error)"function"==typeof r&&r(g(-1,e.info));else{var o={};o="string"==typeof e.payload.data?JSON.parse(e.payload.data):e.payload.data?e.payload.data:{},"0"!=e.payload.code?"function"==typeof r&&r(g(e.payload.code,e.payload.info)):"function"==typeof n&&n(y(o))}})};t.wrapOkPayload=y,t.wrapNotOkPayload=g,t.ready=d,t.onBack=v,t.onRefresh=b,t.onNavigationBar=J,t.onPushView=w,t.onNotify=O,t.subscribeNotify=h,t.onDynamicLink=B,t.onRequest=V,t.pageWillAppear=m,t.onApiRequest=_},8:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var o=function(e){new Date};t.log=o}})});
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["fastman"] = factory();
+	else
+		root["fastman"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// identity function for calling harmony imports with the correct context
+/******/ 	__webpack_require__.i = function(value) { return value; };
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 1:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+/**
+ * Created by dfzq on 2017/4/13.
+ */
+/**
+ * 获取绝对路径
+ * @param url
+ */
+var getAbsoluteUrl = function getAbsoluteUrl(url) {
+    var link = document.createElement('a');
+    link.setAttribute('href', url);
+    var absoluteUrl = link.href;
+    link = null;
+    return absoluteUrl;
+};
+
+/**
+ * 属性继承
+ * @type {*}
+ * @private
+ */
+var _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i];
+        for (var key in source) {
+            // 源对象中是否存在对象键值
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+                target[key] = source[key];
+            }
+        }
+    }
+    return target;
+};
+
+/**
+ * 判断是否为空
+ * @param str {string} 需要判断的值
+ * @returns {boolean}
+ */
+var isEmpty = function isEmpty(str) {
+    return !(str != null && (!!str.length ? true : str.length > 0));
+};
+
+exports.getAbsoluteUrl = getAbsoluteUrl;
+exports._extends = _extends;
+exports.isEmpty = isEmpty;
+
+/***/ }),
+
+/***/ 17:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.onApiRequest = exports.pageWillAppear = exports.onRequest = exports.onDynamicLink = exports.subscribeNotify = exports.onNotify = exports.onPushView = exports.onNavigationBar = exports.onRefresh = exports.onBack = exports.ready = exports.wrapNotOkPayload = exports.wrapOkPayload = undefined;
+
+var _util = __webpack_require__(1);
+
+var _log = __webpack_require__(8);
+
+// 区分设备系统
+/**
+ * Created by dfzq on 2017/4/13.
+ */
+var ua = navigator.userAgent;
+var android = ua.match(/(Android);?[\s\/]+([\d.]+)?/);
+var ipad = ua.match(/(iPad).*OS\s([\d_]+)/);
+var ipod = ua.match(/(iPod)(.*OS\s([\d_]+))?/);
+var iphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/);
+var isFromApp = !!ua.toLowerCase().match(/DFYJ/i);
+
+// 初始化桥接对象
+var init = function init(bridge) {
+  bridge.init(function (message, responseCallback) {
+    if (responseCallback) responseCallback(data);
+  });
+
+  return bridge;
+};
+
+/**
+ * 初始化桥接对象
+ * connectWebViewJavascriptBridge
+ * @param callback
+ */
+var ready = function ready(callback) {
+  var __cb___ = function __cb___(__bridge___) {
+    (0, _log.log)('ready end');
+    callback(__bridge___);
+  };
+
+  if (isFromApp) {
+    if (ipad || iphone || ipod) {
+      // 新版本兼容IOS
+      if (window.WebViewJavascriptBridge) {
+        (0, _log.log)('ready sync start');
+        return __cb___(WebViewJavascriptBridge);
+      }
+      (0, _log.log)('ready async start(push)');
+      if (window.WVJBCallbacks) {
+        return window.WVJBCallbacks.push(__cb___);
+      }
+      (0, _log.log)('ready async start(iframe)');
+      window.WVJBCallbacks = [__cb___];
+      var WVJBIframe = document.createElement('iframe');
+      WVJBIframe.style.display = 'none';
+      WVJBIframe.src = 'https://__bridge_loaded__';
+      document.documentElement.appendChild(WVJBIframe);
+      setTimeout(function () {
+        document.documentElement.removeChild(WVJBIframe);
+      }, 0);
+    } else if (android) {
+      // 旧版本兼容Android
+      if (window.WebViewJavascriptBridge) {
+        (0, _log.log)('ready sync start');
+        __cb___(init(WebViewJavascriptBridge));
+      } else {
+        (0, _log.log)('ready async start');
+        document.addEventListener('WebViewJavascriptBridgeReady', function () {
+          // 以异步形式加载
+          __cb___(init(WebViewJavascriptBridge));
+        }, false);
+      }
+    } else {
+      (0, _log.log)('other platform ready sync start');
+      __cb___();
+    }
+  } else {
+    (0, _log.log)('non app ready sync start');
+    __cb___();
+  }
+};
+
+// 空函数
+var noop = function noop() {};
+
+/**
+ * 成功消息体的包装
+ * @param payload 成功对象
+ */
+// const wrapOkPayload = (payload = {}) => ({
+//     error: false,
+//     info: 'ok',
+//     payload: payload,
+// })
+var wrapOkPayload = function wrapOkPayload() {
+  var payload = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return payload;
+};
+
+/**
+ * 失败消息体的包装
+ * @param info 错误描述
+ */
+var wrapNotOkPayload = function wrapNotOkPayload() {
+  var code = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : -1;
+  var info = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'error';
+  return {
+    // error: true,
+    code: code,
+    info: info
+  };
+};
+
+/**
+ * APP WebView后退，后退到栈的最外层
+ * @param options
+ */
+var onBack = function onBack(options) {
+  // 默认配置
+  var _options = {
+    complete: noop
+  };
+  // 复制
+  _options = (0, _util._extends)({}, _options, options);
+
+  (0, _log.log)('onBack->' + JSON.stringify(_options));
+  WebViewJavascriptBridge.callHandler('back', _options, function (response) {
+    (0, _log.log)('onBack<-' + JSON.stringify(response));
+    _options.complete(response);
+  });
+};
+
+/**
+ * APP WebView刷新
+ * @param options
+ */
+var onRefresh = function onRefresh(options) {
+  var _options = {
+    complete: noop
+  };
+  _options = (0, _util._extends)({}, _options, options);
+
+  (0, _log.log)('onRefresh->' + JSON.stringify(_options));
+  WebViewJavascriptBridge.callHandler('refresh', _options, function (response) {
+    (0, _log.log)('onRefresh<-' + JSON.stringify(response));
+    _options.complete(response);
+  });
+};
+
+/**
+ * 设置原生导航条
+ * @param options
+ * {
+ *    "title": "xxxxx",
+ *    "type": "0"       // 0-默认 1-切换类
+ * }
+ */
+var onNavigationBar = function onNavigationBar(options) {
+  var _options = {
+    complete: noop
+  };
+  _options = (0, _util._extends)({}, _options, options);
+
+  (0, _log.log)('onNavigationBar->' + JSON.stringify(_options));
+  WebViewJavascriptBridge.callHandler('navigationBar', _options, function (response) {
+    (0, _log.log)('onNavigationBar<-' + JSON.stringify(response));
+    _options.complete(response);
+  });
+};
+
+/**
+ * 打开一个新的webview
+ * @param options
+ * {
+ *    "title": "xxxxx",      // 导航名称，如果html设置title，以html为主
+ *    "uri": "xxxxxxx",      // webview请求的路由地址，目前只支持http协议，今后可支持shema协议
+ *    "locktype": 0,         // 0-不需要手势密码；1-手势密码锁屏；2-资金账号锁屏；
+ * }
+ */
+var onPushView = function onPushView(options) {
+  var _options = {
+    title: ''
+  };
+  _options = (0, _util._extends)({}, _options, options);
+
+  if (!!_options.uri) {
+    if (_options.uri.indexOf('http') != -1 || _options.uri.indexOf('https') != -1) {} else {
+      _options.uri = (0, _util.getAbsoluteUrl)(_options.uri);
+    }
+  }
+
+  (0, _log.log)('onPushView->' + JSON.stringify(_options));
+  WebViewJavascriptBridge.callHandler('pushView', _options, function (response) {
+    (0, _log.log)('onPushView<-' + JSON.stringify(response));
+  });
+};
+
+/**
+ * 原生页面将要出现时触发的事件
+ * @param callback
+ */
+var pageWillAppear = function pageWillAppear(callback) {
+  if (typeof callback == 'function') WebViewJavascriptBridge.registerHandler("pageWillAppear", callback);
+};
+
+/**
+ * H5发送通知给客户端
+ * @param options
+ */
+var onNotify = function onNotify(options) {
+  var _options = {
+    type: 'javascriptNotify'
+  };
+  _options = (0, _util._extends)({}, _options, options);
+
+  (0, _log.log)('onNotify->' + JSON.stringify(_options));
+  WebViewJavascriptBridge.callHandler('notify', _options, function (response) {
+    (0, _log.log)('onNotify<-' + JSON.stringify(response));
+  });
+};
+
+/**
+ * H5注册通知，由客户端进行通知
+ * @param type  事件类型名称
+ * @param callback  回调处理
+ */
+var notifyQueue = {};
+var subscribeNotify = function subscribeNotify(type, callback) {
+  if (typeof callback == 'function') {
+    //回调函数存在队列中
+    notifyQueue[type] = callback;
+    var _type = type;
+    if (_type == 'sae_video') {
+      _type = 'notify';
+    }
+
+    (0, _log.log)('subscribeNotify->' + type);
+    WebViewJavascriptBridge.registerHandler(_type, function (data) {
+      (0, _log.log)('subscribeNotify<-' + JSON.stringify(data));
+      // //获取data.type才是H5定义的type
+      // if (Object.prototype.toString.call(data).toLocaleLowerCase() == '[object String]'.toLocaleLowerCase()) {
+      //   data = JSON.parse(data);
+      // }
+      if (notifyQueue[_type]) {
+        notifyQueue[_type](data);
+      }
+    });
+  }
+};
+
+/**
+ * 调用Schema Url
+ * @param options
+ */
+var onDynamicLink = function onDynamicLink(options) {
+  var _options = {
+    url: ''
+  };
+  _options = (0, _util._extends)({}, _options, options);
+
+  (0, _log.log)('onDynamicLink->' + JSON.stringify(_options));
+  WebViewJavascriptBridge.callHandler('dynamicLink', _options, function (response) {
+    (0, _log.log)('onDynamicLink<-' + JSON.stringify(response));
+  });
+};
+
+// 存储Request指令订阅Handlers
+var requestHandlerMap = {};
+// 是否注册了Request指令订阅Handlers
+var requestHandlerRegisterFlag = false;
+
+/**
+ * 调用Request指令（通常作用在一些原生和客户端之间比较特殊的操作）
+ * @param operationType     操作指令（见文档）
+ * @param payloadOptions    消息体结构
+ */
+var onRequest = function onRequest(operationType, payloadOptions, okCallBack, notOkCallBack) {
+  var _options = {
+    type: !operationType ? '1' : operationType,
+    payload: !payloadOptions ? {} : payloadOptions
+  };
+
+  requestHandlerMap[operationType + '-ok'] = typeof okCallBack === 'function' ? okCallBack : noop;
+  requestHandlerMap[operationType + '-notok'] = typeof notOkCallBack === 'function' ? notOkCallBack : noop;
+
+  // IOS同步回调处理
+  (0, _log.log)('onRequest->' + JSON.stringify(_options));
+  WebViewJavascriptBridge.callHandler('request', _options, function (response) {
+
+    if (typeof response == 'string') {
+      response = JSON.parse(response);
+    }
+
+    (0, _log.log)('onRequest<-' + JSON.stringify(response));
+    if (response.error || response.error === 'true') {
+      if (typeof notOkCallBack === 'function') {
+        requestHandlerMap[operationType + '-notok'](wrapNotOkPayload(-1, response.info));
+      }
+    } else {
+      if (typeof okCallBack === 'function') {
+        // 防止安卓指令调用成功同步进入的控制
+        if (ipad || iphone || ipod || response.payload) {
+          requestHandlerMap[operationType + '-ok'](wrapOkPayload(response.payload));
+        }
+      }
+    }
+  });
+
+  if (!requestHandlerRegisterFlag) {
+    // Android异步回调处理
+    WebViewJavascriptBridge.registerHandler('request', function (response) {
+
+      if (typeof response == 'string') {
+        response = JSON.parse(response);
+      }
+
+      if (response.error || response.error === 'true') {
+        if (typeof requestHandlerMap[operationType + '-notok'] === 'function') {
+          requestHandlerMap[operationType + '-notok'](wrapNotOkPayload(-1, response.info));
+        }
+      } else {
+        if (typeof requestHandlerMap[operationType + '-ok'] === 'function') {
+          requestHandlerMap[operationType + '-ok'](wrapOkPayload(response.payload));
+        }
+      }
+    });
+    requestHandlerRegisterFlag = true;
+  }
+};
+
+/**
+ * 提供给第三方调用中台接口的函数
+ * @param functionNo        中台功能号
+ * @param payloadOptions    中台消息体
+ * @param okCallBack        成功回调函数
+ * @param notOkCallBack     失败回调函数
+ */
+var onApiRequest = function onApiRequest(functionNo, payloadOptions, okCallBack, notOkCallBack) {
+
+  if ((0, _util.isEmpty)(functionNo)) {
+    throw new Error('functionNo is required ...');
+  } else {
+    var _options = {
+      funcId: functionNo,
+      payload: !payloadOptions ? {} : payloadOptions
+    };
+  }
+
+  (0, _log.log)('onApiRequest->' + JSON.stringify(_options));
+  WebViewJavascriptBridge.callHandler('apiRequest', _options, function (response) {
+    (0, _log.log)('onApiRequest<-' + JSON.stringify(response));
+
+    if (typeof response == 'string') {
+      response = JSON.parse(response);
+    }
+
+    // 2017-12-26:对脚本逻辑做兼容，IOS认为业务异常和系统异常response.error都是true，ANDROID认为业务异常和业务成功时response.error是false,而系统异常response.error是true
+
+    // IOS认为业务异常和系统异常response.error都是true,业务成功response.error是false
+    if (ipad || iphone || ipod) {
+
+      if (response.error || response.error === 'true') {
+        // 接口业务异常
+        if (response.payload) {
+          if (typeof notOkCallBack === 'function') {
+            notOkCallBack(wrapNotOkPayload(response.payload.code, response.payload.info));
+          }
+        }
+        // 客户端自身应用级别错误（ios不给payload字段）
+        else {
+            if (typeof notOkCallBack === 'function') {
+              notOkCallBack(wrapNotOkPayload(-1, response.info));
+            }
+          }
+      } else {
+        if (typeof okCallBack === 'function') {
+          var re = {};
+          if (response.payload) {
+            if (typeof response.payload.data == 'string') {
+              re = JSON.parse(response.payload.data);
+            } else {
+              re = response.payload.data;
+            }
+          }
+
+          okCallBack(wrapOkPayload(re));
+        }
+      }
+    }
+    // ANDROID认为业务异常和业务成功时response.error是false,而系统异常response.error是true
+    else {
+
+        if (response.error || response.error === 'true') {
+          if (typeof notOkCallBack === 'function') {
+            notOkCallBack(wrapNotOkPayload(-1, response.info));
+          }
+        } else {
+          var _re = {};
+          if (typeof response.payload.data == 'string') {
+            _re = JSON.parse(response.payload.data);
+          } else {
+            _re = response.payload.data ? response.payload.data : {};
+          }
+
+          // 业务异常
+          if (response.payload.code != '0') {
+            if (typeof notOkCallBack === 'function') {
+              notOkCallBack(wrapNotOkPayload(response.payload.code, response.payload.info));
+            }
+          }
+          // 业务成功
+          else {
+              if (typeof okCallBack === 'function') {
+                okCallBack(wrapOkPayload(_re));
+              }
+            }
+        }
+      }
+  });
+};
+
+exports.wrapOkPayload = wrapOkPayload;
+exports.wrapNotOkPayload = wrapNotOkPayload;
+exports.ready = ready;
+exports.onBack = onBack;
+exports.onRefresh = onRefresh;
+exports.onNavigationBar = onNavigationBar;
+exports.onPushView = onPushView;
+exports.onNotify = onNotify;
+exports.subscribeNotify = subscribeNotify;
+exports.onDynamicLink = onDynamicLink;
+exports.onRequest = onRequest;
+exports.pageWillAppear = pageWillAppear;
+exports.onApiRequest = onApiRequest;
+
+/***/ }),
+
+/***/ 8:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * Created by dfzq on 2019/6/22.
+ */
+var log = function log(str) {
+  var _d = new Date();
+  console.log(_d.toLocaleTimeString() + ' ' + _d.getMilliseconds() + ":" + str);
+};
+
+exports.log = log;
+
+/***/ })
+
+/******/ });
+});

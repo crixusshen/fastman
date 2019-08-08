@@ -7,4 +7,78 @@
  *  * ============================================================
  * 
  */
-!function(t,o){"object"==typeof exports&&"object"==typeof module?module.exports=o():"function"==typeof define&&define.amd?define([],o):"object"==typeof exports?exports.fastman=o():t.fastman=o()}(this,function(){return webpackJsonpfastman([29],{199:function(t,o,e){t.exports=e(77)},77:function(t,o,e){"use strict";Object.defineProperty(o,"__esModule",{value:!0});var n="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},l=e(11);o.default=function(t,o,e,i){if("function"==typeof o)e=o,o=void 0;else if("object"===(void 0===t?"undefined":n(t))){var f=t.text,s=void 0===f?"":f,u=t.title,d=void 0===u?l.defaults.modalTitle:u,r=t.allowClose,a=void 0!==r&&r,c=t.onClick;return(0,l.modal)({text:s,title:d,buttons:[{text:l.defaults.modalButtonOk,bold:!0,onClick:c}],isClose:a,extraClass:"remove-on-close"})}return(0,l.modal)({text:t||"",title:void 0===o?l.defaults.modalTitle:o,buttons:[{text:l.defaults.modalButtonOk,bold:!0,onClick:e}],isClose:i||!1,extraClass:"remove-on-close"})}}},[199])});
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["fastman"] = factory();
+	else
+		root["fastman"] = factory();
+})(this, function() {
+return webpackJsonpfastman([29],{
+
+/***/ 200:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(78);
+
+
+/***/ }),
+
+/***/ 78:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
+                                                                                                                                                                                                                                                                               * Created by linyiqing on 2017/3/21.
+                                                                                                                                                                                                                                                                               */
+
+
+var _modal = __webpack_require__(11);
+
+exports.default = function (_text, title, callbackOk, allowClose) {
+    // 表达式声明
+    if (typeof title === 'function') {
+        callbackOk = title;
+        title = undefined;
+    }
+    // 函数对象式声明
+    else if ((typeof _text === 'undefined' ? 'undefined' : _typeof(_text)) === 'object') {
+            var _text$text = _text.text,
+                text = _text$text === undefined ? '' : _text$text,
+                _text$title = _text.title,
+                _title = _text$title === undefined ? _modal.defaults.modalTitle : _text$title,
+                _text$allowClose = _text.allowClose,
+                _allowClose = _text$allowClose === undefined ? false : _text$allowClose,
+                onClick = _text.onClick;
+
+            return (0, _modal.modal)({
+                text: text,
+                title: _title,
+                buttons: [{ text: _modal.defaults.modalButtonOk, bold: true, onClick: onClick }],
+                isClose: _allowClose,
+                extraClass: 'remove-on-close'
+            });
+        }
+
+    return (0, _modal.modal)({
+        text: _text || '',
+        title: typeof title === 'undefined' ? _modal.defaults.modalTitle : title,
+        buttons: [{ text: _modal.defaults.modalButtonOk, bold: true, onClick: callbackOk }],
+        isClose: allowClose || false,
+        extraClass: 'remove-on-close'
+    });
+};
+
+/***/ })
+
+},[200]);
+});

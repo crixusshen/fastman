@@ -7,4 +7,87 @@
  *  * ============================================================
  * 
  */
-!function(t,o){"object"==typeof exports&&"object"==typeof module?module.exports=o():"function"==typeof define&&define.amd?define([],o):"object"==typeof exports?exports.fastman=o():t.fastman=o()}(this,function(){return webpackJsonpfastman([25],{203:function(t,o,e){t.exports=e(80)},80:function(t,o,e){"use strict";Object.defineProperty(o,"__esModule",{value:!0});var n="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},l=e(11);o.default=function(t,o,e,i,f,u){if("function"==typeof o)f&&(u=f),i&&(f=i),e&&(i=e),e=o,o=void 0;else if("object"===(void 0===t?"undefined":n(t))){var a=t.text,d=void 0===a?"":a,c=t.title,s=void 0===c?l.defaults.modalTitle:c,r=t.onCancelClick,m=t.onOkClick,p=t.okText,y=void 0===p?l.defaults.modalButtonOk:p,b=t.cancelText,x=void 0===b?l.defaults.modalButtonCancel:b;return(0,l.modal)({text:d,title:s,buttons:[{text:x,onClick:r},{text:y,bold:!0,onClick:m}],extraClass:"remove-on-close"})}return(0,l.modal)({text:t||"",title:void 0===o?l.defaults.modalTitle:o,buttons:[{text:u||l.defaults.modalButtonCancel,onClick:i},{text:f||l.defaults.modalButtonOk,bold:!0,onClick:e}],extraClass:"remove-on-close"})}}},[203])});
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["fastman"] = factory();
+	else
+		root["fastman"] = factory();
+})(this, function() {
+return webpackJsonpfastman([25],{
+
+/***/ 204:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(81);
+
+
+/***/ }),
+
+/***/ 81:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
+                                                                                                                                                                                                                                                                               * Created by linyiqing on 2017/3/27.
+                                                                                                                                                                                                                                                                               */
+
+
+var _modal = __webpack_require__(11);
+
+exports.default = function (_text, title, callbackOk, callbackCancel, textOk, textCancel) {
+    // 表达式声明
+    if (typeof title === 'function') {
+        if (textOk) {
+            textCancel = textOk;
+        }
+        if (callbackCancel) {
+            textOk = callbackCancel;
+        }
+        if (callbackOk) {
+            callbackCancel = callbackOk;
+        }
+        callbackOk = title;
+        title = undefined;
+    }
+    // 函数对象式声明
+    else if ((typeof _text === 'undefined' ? 'undefined' : _typeof(_text)) === 'object') {
+            var _text$text = _text.text,
+                text = _text$text === undefined ? '' : _text$text,
+                _text$title = _text.title,
+                _title = _text$title === undefined ? _modal.defaults.modalTitle : _text$title,
+                onCancelClick = _text.onCancelClick,
+                onOkClick = _text.onOkClick,
+                _text$okText = _text.okText,
+                okText = _text$okText === undefined ? _modal.defaults.modalButtonOk : _text$okText,
+                _text$cancelText = _text.cancelText,
+                cancelText = _text$cancelText === undefined ? _modal.defaults.modalButtonCancel : _text$cancelText;
+
+            return (0, _modal.modal)({
+                text: text,
+                title: _title,
+                buttons: [{ text: cancelText, onClick: onCancelClick }, { text: okText, bold: true, onClick: onOkClick }],
+                extraClass: 'remove-on-close'
+            });
+        }
+    return (0, _modal.modal)({
+        text: _text || '',
+        title: typeof title === 'undefined' ? _modal.defaults.modalTitle : title,
+        buttons: [{ text: textCancel || _modal.defaults.modalButtonCancel, onClick: callbackCancel }, { text: textOk || _modal.defaults.modalButtonOk, bold: true, onClick: callbackOk }],
+        extraClass: 'remove-on-close'
+    });
+};
+
+/***/ })
+
+},[204]);
+});

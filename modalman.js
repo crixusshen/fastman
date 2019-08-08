@@ -7,4 +7,267 @@
  *  * ============================================================
  * 
  */
-!function(o,a){"object"==typeof exports&&"object"==typeof module?module.exports=a():"function"==typeof define&&define.amd?define([],a):"object"==typeof exports?exports.fastman=a():o.fastman=a()}(this,function(){return webpackJsonpfastman([22],{11:function(o,a,l){"use strict";function t(o){var a=$(this);a.attr("href"),a.dataset();a.hasClass("modal-overlay")&&($(".modal.modal-in").length>0&&i.modalCloseByOutside&&d(".modal.modal-in"),$(".actions-modal.modal-in").length>0&&i.actionsCloseByOutside&&d(".actions-modal.modal-in")),a.hasClass("popup-overlay")&&$(".popup-modal.modal-in").length>0&&i.popupCloseByOutside&&d(".popup-modal.modal-in")}Object.defineProperty(a,"__esModule",{value:!0});var e=document.createElement("div");$.modalStack=[],$.modalStackClearQueue=function(){$.modalStack.length&&$.modalStack.shift()()};var s=function(o){o=o||{};var a="",l="";if(o.buttons&&o.buttons.length>0)for(var t=0;t<o.buttons.length;t++)l+='<span class="modal-button'+(o.buttons[t].bold?" modal-button-bold":"")+'">'+o.buttons[t].text+"</span>";var s=o.extraClass||"",r=o.title?'<div class="modal-title">'+o.title+"</div>":"",m=o.text?'<div class="modal-text">'+o.text+"</div>":"",c=o.afterText?o.afterText:"",u=o.buttons&&0!==o.buttons.length?"":"modal-no-buttons",p=o.verticalButtons?"modal-buttons-vertical":"";a='<div class="modal '+s+" "+u+'">'+(!o.isClose?"":'<i class="modal-close">+</i>')+'<div class="modal-inner">'+(r+m+c)+'</div><div class="modal-buttons '+p+'">'+l+"</div></div>",e.innerHTML=a;var v=$(e).children();return $(i.modalContainer).append(v[0]),v.find(".modal-button").each(function(a,l){$(l).on("click",function(l){!1!==o.buttons[a].close&&d(v),o.buttons[a].onClick&&o.buttons[a].onClick(v,l),o.onClick&&o.onClick(v,a)})}),v.find(".modal-close").on("click",function(o){d(v)}),n(v),v[0]},n=function o(a,l){a=$(a);var t=a.hasClass("modal"),e=!a.hasClass("toast");if($(".modal.modal-in:not(.modal-out)").length&&i.modalStack&&t&&e)return void $.modalStack.push(function(){o(a,l)});var s=a.hasClass("popup-modal"),n=a.hasClass("login-screen"),d=a.hasClass("picker-modal"),r=a.hasClass("toast"),m=a.hasClass("tip-modal"),c=a.hasClass("actions-modal");t&&(a.show(),a.css({marginTop:-Math.round(a.outerHeight()/2)+"px"})),r&&a.css({marginLeft:-Math.round(a.outerWidth()/2/1.185)+"px"}),s&&(a.show(),a.find(".content").scroller("refresh"),a.find("."+i.viewClass).length>0&&$.sizeNavbars(a.find("."+i.viewClass)[0])),(m||c)&&a.show();var u;n||d||r||m||(0!==$(".modal-overlay").length||s||$(i.modalContainer).append('<div class="modal-overlay"></div>'),0===$(".popup-overlay").length&&s&&$(i.modalContainer).append('<div class="popup-overlay"></div>'),u=s?$(".popup-overlay"):$(".modal-overlay"));a[0].clientLeft;return a.trigger("open"),d&&$(i.modalContainer).addClass("with-picker-modal"),n||d||r||m||u.addClass("modal-overlay-visible"),a.removeClass("modal-out").addClass("modal-in").transitionEnd(function(o){a.hasClass("modal-out")?a.trigger("closed"):a.trigger("opened")}),"function"==typeof l&&l.call(this),!0},d=function(o,a){if(void 0===(o=$(o||".modal-in"))||0!==o.length){var l=o.hasClass("modal"),t=o.hasClass("popup-modal"),e=o.hasClass("toast"),s=o.hasClass("login-screen"),n=o.hasClass("picker-modal"),d=o.hasClass("tip-modal"),r=o.hasClass("actions-modal"),m=o.hasClass("remove-on-close"),c=t?$(".popup-overlay"):$(".modal-overlay");return t?o.length===$(".popup-modal.modal-in").length&&c.removeClass("modal-overlay-visible"):n||e||c.removeClass("modal-overlay-visible"),o.trigger("close"),n&&($(i.modalContainer).removeClass("with-picker-modal"),$(i.modalContainer).addClass("picker-modal-closing")),o.removeClass("modal-in").addClass("modal-out").transitionEnd(function(e){o.hasClass("modal-out")?o.trigger("closed"):o.trigger("opened"),n&&$(i.modalContainer).removeClass("picker-modal-closing"),"function"==typeof a&&a.call(this),t||s||n||l||d||r?(o.removeClass("modal-out").hide(),m&&o.length>0&&o.remove()):o.remove()}),l&&i.modalStack&&$.modalStackClearQueue(),!0}};$(document).on("click"," .modal-overlay, .popup-overlay, .close-popup, .open-popup, .close-picker",t);var i=s.prototype.defaults={modalStack:!0,modalButtonOk:"确定",modalButtonCancel:"取消",modalPreloaderTitle:"加载中",modalContainer:document.body?document.body:"body",modalTitle:"",actionsCloseByOutside:!0};a.defaults=i,a.modal=s,a.openModal=n,a.closeModal=d},206:function(o,a,l){o.exports=l(11)}},[206])});
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["fastman"] = factory();
+	else
+		root["fastman"] = factory();
+})(this, function() {
+return webpackJsonpfastman([22],{
+
+/***/ 11:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+/**
+ * Created by linyiqing on 2017/3/16.
+ */
+var _modalTemplateTempDiv = document.createElement('div');
+
+$.modalStack = [];
+
+$.modalStackClearQueue = function () {
+    if ($.modalStack.length) {
+        $.modalStack.shift()();
+    }
+};
+var modal = function modal(params) {
+    params = params || {};
+    var modalHTML = '';
+    var buttonsHTML = '';
+    if (params.buttons && params.buttons.length > 0) {
+        for (var i = 0; i < params.buttons.length; i++) {
+            buttonsHTML += '<span class="modal-button' + (params.buttons[i].bold ? ' modal-button-bold' : '') + '">' + params.buttons[i].text + '</span>';
+        }
+    }
+    var extraClass = params.extraClass || '';
+    var titleHTML = params.title ? '<div class="modal-title">' + params.title + '</div>' : '';
+    var textHTML = params.text ? '<div class="modal-text">' + params.text + '</div>' : '';
+    var afterTextHTML = params.afterText ? params.afterText : '';
+    var noButtons = !params.buttons || params.buttons.length === 0 ? 'modal-no-buttons' : '';
+    var verticalButtons = params.verticalButtons ? 'modal-buttons-vertical' : '';
+    var isClose = !!params.isClose; //支持弹框是否可以关闭，目前主要用于alert
+    modalHTML = '<div class="modal ' + extraClass + ' ' + noButtons + '">' + (isClose ? '<i class="modal-close">+</i>' : '') + '<div class="modal-inner">' + (titleHTML + textHTML + afterTextHTML) + '</div><div class="modal-buttons ' + verticalButtons + '">' + buttonsHTML + '</div></div>';
+
+    _modalTemplateTempDiv.innerHTML = modalHTML;
+
+    var modal = $(_modalTemplateTempDiv).children();
+
+    $(defaults.modalContainer).append(modal[0]);
+
+    // Add events on buttons
+    modal.find('.modal-button').each(function (index, el) {
+        $(el).on('click', function (e) {
+            if (params.buttons[index].close !== false) closeModal(modal);
+            if (params.buttons[index].onClick) params.buttons[index].onClick(modal, e);
+            if (params.onClick) params.onClick(modal, index);
+        });
+    });
+    // close button
+    modal.find('.modal-close').on('click', function (e) {
+        closeModal(modal);
+    });
+    openModal(modal);
+    return modal[0];
+};
+var openModal = function openModal(modal, cb) {
+    modal = $(modal);
+    var isModal = modal.hasClass('modal'),
+        isNotToast = !modal.hasClass('toast');
+    if ($('.modal.modal-in:not(.modal-out)').length && defaults.modalStack && isModal && isNotToast) {
+        $.modalStack.push(function () {
+            openModal(modal, cb);
+        });
+        return;
+    }
+    var isPopup = modal.hasClass('popup-modal');
+    var isLoginScreen = modal.hasClass('login-screen');
+    var isPickerModal = modal.hasClass('picker-modal');
+    var isToast = modal.hasClass('toast');
+    var isTipModal = modal.hasClass('tip-modal');
+    var isActionsModal = modal.hasClass('actions-modal');
+    if (isModal) {
+        modal.show();
+        modal.css({
+            marginTop: -Math.round(modal.outerHeight() / 2) + 'px'
+        });
+    }
+    if (isToast) {
+        modal.css({
+            marginLeft: -Math.round(modal.outerWidth() / 2 / 1.185) + 'px' //1.185 是初始化时候的放大效果
+        });
+    }
+    if (isPopup) {
+        modal.show();
+        modal.find(".content").scroller("refresh");
+        if (modal.find('.' + defaults.viewClass).length > 0) {
+            $.sizeNavbars(modal.find('.' + defaults.viewClass)[0]);
+        }
+    }
+    if (isTipModal || isActionsModal) {
+        modal.show();
+    }
+
+    var overlay;
+    if (!isLoginScreen && !isPickerModal && !isToast && !isTipModal) {
+        if ($('.modal-overlay').length === 0 && !isPopup) {
+            $(defaults.modalContainer).append('<div class="modal-overlay"></div>');
+        }
+        if ($('.popup-overlay').length === 0 && isPopup) {
+            $(defaults.modalContainer).append('<div class="popup-overlay"></div>');
+        }
+        overlay = isPopup ? $('.popup-overlay') : $('.modal-overlay');
+    }
+
+    //Make sure that styles are applied, trigger relayout;
+    var clientLeft = modal[0].clientLeft;
+
+    // Trugger open event
+    modal.trigger('open');
+
+    // Picker modal body class
+    if (isPickerModal) {
+        $(defaults.modalContainer).addClass('with-picker-modal');
+    }
+
+    // Classes for transition in
+    if (!isLoginScreen && !isPickerModal && !isToast && !isTipModal) overlay.addClass('modal-overlay-visible');
+    modal.removeClass('modal-out').addClass('modal-in').transitionEnd(function (e) {
+        if (modal.hasClass('modal-out')) modal.trigger('closed');else modal.trigger('opened');
+    });
+    // excute callback
+    if (typeof cb === 'function') {
+        cb.call(this);
+    }
+    return true;
+};
+var closeModal = function closeModal(modal, cb) {
+    modal = $(modal || '.modal-in');
+    if (typeof modal !== 'undefined' && modal.length === 0) {
+        return;
+    }
+    var isModal = modal.hasClass('modal'),
+        isPopup = modal.hasClass('popup-modal'),
+        isToast = modal.hasClass('toast'),
+        isLoginScreen = modal.hasClass('login-screen'),
+        isPickerModal = modal.hasClass('picker-modal'),
+        isTipModal = modal.hasClass('tip-modal'),
+        isActionsModal = modal.hasClass('actions-modal'),
+        removeOnClose = modal.hasClass('remove-on-close'),
+
+    // removeOnClose = true,
+    overlay = isPopup ? $('.popup-overlay') : $('.modal-overlay');
+    if (isPopup) {
+        if (modal.length === $('.popup-modal.modal-in').length) {
+            overlay.removeClass('modal-overlay-visible');
+        }
+    } else if (!(isPickerModal || isToast)) {
+        overlay.removeClass('modal-overlay-visible');
+    }
+
+    modal.trigger('close');
+
+    // Picker modal body class
+    if (isPickerModal) {
+        $(defaults.modalContainer).removeClass('with-picker-modal');
+        $(defaults.modalContainer).addClass('picker-modal-closing');
+    }
+
+    modal.removeClass('modal-in').addClass('modal-out').transitionEnd(function (e) {
+        if (modal.hasClass('modal-out')) modal.trigger('closed');else modal.trigger('opened');
+
+        if (isPickerModal) {
+            $(defaults.modalContainer).removeClass('picker-modal-closing');
+        }
+
+        // 在modal-dom移除前执行callback函数
+        if (typeof cb === 'function') {
+            cb.call(this);
+        }
+
+        if (isPopup || isLoginScreen || isPickerModal || isModal || isTipModal || isActionsModal) {
+            modal.removeClass('modal-out').hide();
+            if (removeOnClose && modal.length > 0) {
+                modal.remove();
+            }
+        } else {
+            modal.remove();
+        }
+    });
+    if (isModal && defaults.modalStack) {
+        $.modalStackClearQueue();
+    }
+
+    return true;
+};
+function handleClicks(e) {
+    /*jshint validthis:true */
+    var clicked = $(this);
+    var url = clicked.attr('href');
+
+    //Collect Clicked data- attributes
+    var clickedData = clicked.dataset();
+
+    // Popup
+    /*var popup;
+    if (clicked.hasClass('open-popup')) {
+        if (clickedData.popup) {
+            popup = clickedData.popup;
+        }
+        else popup = '.popup';
+        $.popup(popup);
+    }
+    if (clicked.hasClass('close-popup')) {
+        if (clickedData.popup) {
+            popup = clickedData.popup;
+        }
+        else popup = '.popup.modal-in';
+        $.closeModal(popup);
+    }*/
+
+    // Close Modal
+    if (clicked.hasClass('modal-overlay')) {
+        if ($('.modal.modal-in').length > 0 && defaults.modalCloseByOutside) closeModal('.modal.modal-in');
+        if ($('.actions-modal.modal-in').length > 0 && defaults.actionsCloseByOutside) closeModal('.actions-modal.modal-in');
+    }
+    if (clicked.hasClass('popup-overlay')) {
+        if ($('.popup-modal.modal-in').length > 0 && defaults.popupCloseByOutside) closeModal('.popup-modal.modal-in');
+    }
+}
+$(document).on('click', ' .modal-overlay, .popup-overlay, .close-popup, .open-popup, .close-picker', handleClicks);
+var defaults = modal.prototype.defaults = {
+    modalStack: true,
+    modalButtonOk: '确定',
+    modalButtonCancel: '取消',
+    modalPreloaderTitle: '加载中',
+    modalContainer: document.body ? document.body : 'body',
+    modalTitle: '',
+    actionsCloseByOutside: true
+};
+
+exports.defaults = defaults;
+exports.modal = modal;
+exports.openModal = openModal;
+exports.closeModal = closeModal;
+
+/***/ }),
+
+/***/ 207:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(11);
+
+
+/***/ })
+
+},[207]);
+});

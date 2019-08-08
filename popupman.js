@@ -7,4 +7,64 @@
  *  * ============================================================
  * 
  */
-!function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports.fastman=t():e.fastman=t()}(this,function(){return webpackJsonpfastman([20],{208:function(e,t,n){e.exports=n(83)},83:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var o=n(11);t.default=function(e,t){if(void 0===t&&(t=!0),"string"==typeof e&&e.indexOf("<")>=0){var n=document.createElement("div");if(n.innerHTML=e.trim(),!(n.childNodes.length>0))return!1;e=n.childNodes[0],t&&e.classList.add("remove-on-close"),$(o.defaults.modalContainer).append(e)}return e=$(e),0!==e.length&&(e.show(),e.find(".content").scroller("refresh"),e.find("."+o.defaults.viewClass).length>0&&$.sizeNavbars(e.find("."+o.defaults.viewClass)[0]),(0,o.openModal)(e),e[0])}}},[208])});
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["fastman"] = factory();
+	else
+		root["fastman"] = factory();
+})(this, function() {
+return webpackJsonpfastman([20],{
+
+/***/ 209:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(84);
+
+
+/***/ }),
+
+/***/ 84:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _modal2 = __webpack_require__(11);
+
+exports.default = function (modal, removeOnClose) {
+    if (typeof removeOnClose === 'undefined') removeOnClose = true;
+    if (typeof modal === 'string' && modal.indexOf('<') >= 0) {
+        var _modal = document.createElement('div');
+        _modal.innerHTML = modal.trim();
+        if (_modal.childNodes.length > 0) {
+            modal = _modal.childNodes[0];
+            if (removeOnClose) modal.classList.add('remove-on-close');
+            $(_modal2.defaults.modalContainer).append(modal);
+        } else return false; //nothing found
+    }
+    modal = $(modal);
+    if (modal.length === 0) return false;
+    modal.show();
+    modal.find(".content").scroller("refresh");
+    if (modal.find('.' + _modal2.defaults.viewClass).length > 0) {
+        $.sizeNavbars(modal.find('.' + _modal2.defaults.viewClass)[0]);
+    }
+    (0, _modal2.openModal)(modal);
+
+    return modal[0];
+}; /**
+    * Created by linyiqing on 2017/3/27.
+    */
+
+/***/ })
+
+},[209]);
+});
