@@ -92,9 +92,7 @@ export interface IAction<T> {
         }) => void;
         request: (options: {
             type: string;
-            payload?: {
-                [key: string]: any;
-            };
+            payload?: requestType;
             success?: (response: any) => void;
             error?: (err: any) => void;
         }) => void;
