@@ -1,4 +1,5 @@
 /// <reference path="fast.d.ts" />
+import { NestedReadonly } from "../types";
 import { View } from "../view";
 declare namespace JSX {
     interface IIntrinsicElements {
@@ -20,8 +21,8 @@ declare type requestType = {
 export interface IEffect<T> {
 }
 export interface IMutation<T> {
-    updateModel: (data: T) => T;
-    $updateModel: (data: T) => T;
+    updateModel: (data: NestedReadonly<T>) => NestedReadonly<T>;
+    $updateModel: (data: NestedReadonly<T>) => NestedReadonly<T>;
 }
 export interface IAction<T> {
     router: {
@@ -31,8 +32,8 @@ export interface IAction<T> {
         destoryBlock: () => void;
     };
     model: {
-        setState: (state: T) => void;
-        setObjectState: (state: T) => void;
+        setState: (state: NestedReadonly<T>) => void;
+        setObjectState: (state: NestedReadonly<T>) => void;
     };
     saveSessionState: () => void;
     historyStack: {
@@ -114,20 +115,20 @@ export interface IBaseModelType<T> {
     };
 }
 export interface IMutationType<T, M = {}> {
-    (model: T & IBaseModelType<T>, data: any, actions: IMutation<T> & M, error: any): T;
+    (model: NestedReadonly<T> & NestedReadonly<IBaseModelType<T>>, data: any, actions: IMutation<T> & M, error: any): T;
 }
 export interface IReadiesType<T, E = {}, M = {}> {
-    (model: T & IBaseModelType<T>, actions: IAction<T> & IEffect<T> & IMutation<T> & E & M, error: any): void;
+    (model: NestedReadonly<T> & NestedReadonly<IBaseModelType<T>>, actions: IAction<T> & IEffect<T> & IMutation<T> & E & M, error: any): void;
 }
 export interface IHooksType<T, E = {}, M = {}> {
     onAction?: (actions: IAction<T> & IEffect<T> & IMutation<T> & E & M, data: any) => void;
-    onUpdate?: (oldModel: T & IBaseModelType<T>, newModel: T & IBaseModelType<T>, data: any) => void;
-    onRender?: (model: T & IBaseModelType<T>, view: JSX.IIntrinsicElements[] | JSX.IIntrinsicElements) => void;
+    onUpdate?: (oldModel: NestedReadonly<T> & NestedReadonly<IBaseModelType<T>>, newModel: NestedReadonly<T> & NestedReadonly<IBaseModelType<T>>, data: any) => void;
+    onRender?: (model: NestedReadonly<T> & NestedReadonly<IBaseModelType<T>>, view: JSX.IIntrinsicElements[] | JSX.IIntrinsicElements) => void;
     onError?: (error: any) => void;
-    onPageInit?: (e: any, pageId: string, $page: any, actions: IAction<T> & IEffect<T> & IMutation<T> & E & M, model: T & IBaseModelType<T>) => void;
-    onPageWillDisappear?: (e: any, pageId: string, $page: any, actions: IAction<T> & IEffect<T> & IMutation<T> & E & M, model: T & IBaseModelType<T>) => void;
-    onPageWillAppear?: (e: any, pageId: string, $page: any, actions: IAction<T> & IEffect<T> & IMutation<T> & E & M, model: T & IBaseModelType<T>) => void;
-    onPageDidAppear?: (e: any, pageId: string, $page: any, actions: IAction<T> & IEffect<T> & IMutation<T> & E & M, model: T & IBaseModelType<T>) => void;
+    onPageInit?: (e: any, pageId: string, $page: any, actions: IAction<T> & IEffect<T> & IMutation<T> & E & M, model: NestedReadonly<T> & NestedReadonly<IBaseModelType<T>>) => void;
+    onPageWillDisappear?: (e: any, pageId: string, $page: any, actions: IAction<T> & IEffect<T> & IMutation<T> & E & M, model: NestedReadonly<T> & NestedReadonly<IBaseModelType<T>>) => void;
+    onPageWillAppear?: (e: any, pageId: string, $page: any, actions: IAction<T> & IEffect<T> & IMutation<T> & E & M, model: NestedReadonly<T> & NestedReadonly<IBaseModelType<T>>) => void;
+    onPageDidAppear?: (e: any, pageId: string, $page: any, actions: IAction<T> & IEffect<T> & IMutation<T> & E & M, model: NestedReadonly<T> & NestedReadonly<IBaseModelType<T>>) => void;
 }
 declare type Constructor<T> = new (...args: any[]) => T;
 export declare abstract class Bootstrap<T, E = {}, M = {}> {

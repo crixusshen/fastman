@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @Author: shenzhiwei
  * @Date: 2019-07-16 08:49:38
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-08-06 10:12:48
+ * @LastEditTime: 2019-08-08 17:51:51
  * @Description: mutation声明注解，用来约束函数的声明结构和参数、返回值类型
  */
 var coreman_1 = require("fastman/coreman");

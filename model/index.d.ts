@@ -1,8 +1,5 @@
-declare type NestedReadonly<T> = {
-    readonly [P in keyof T]: NestedReadonly<T[P]>;
-};
+import { NestedReadonly } from '../types';
 export declare class ModelService<T> {
     constructor();
     select(): NestedReadonly<T>;
 }
-export {};
