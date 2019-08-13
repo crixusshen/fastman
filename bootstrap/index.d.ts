@@ -21,8 +21,8 @@ declare type requestType = {
 export interface IEffect<T> {
 }
 export interface IMutation<T> {
-    updateModel: (data: NestedReadonly<T>) => NestedReadonly<T>;
-    $updateModel: (data: NestedReadonly<T>) => NestedReadonly<T>;
+    updateModel: (data: T) => NestedReadonly<T>;
+    $updateModel: (data: T) => NestedReadonly<T>;
 }
 export interface IAction<T> {
     router: {
