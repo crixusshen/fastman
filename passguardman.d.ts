@@ -6,7 +6,7 @@ export default passGuard;
 
 /**
  * 创建一个密码控件组件
- * @param options 具体请查看passGuard参数配置:http://itest.dfzq.com.cn/document/fastman-v2/component/passguard.html
+ * @param options 具体请查看文档
  */
 declare function passGuard(options: {
   id?: string,

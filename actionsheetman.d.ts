@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 /**
  * 打开一个actionsheet操作表组件
- * @param btns 具体options参数请查看http://itest.dfzq.com.cn/document/fastman-v2/component/actionsheet.html
+ * @param btns 具体options参数请查看文档
  */
 export default function actionSheet(btns: Array<actionSheetItemsType>)
 

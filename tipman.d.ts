@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 /**
  * 打开一个工具提示框
- * @param options 具体options参数请查看http://itest.dfzq.com.cn/document/fastman-v2/component/tip.html
+ * @param options 具体options参数请查看文档
  */
 export function tip(options: {
   content: string,

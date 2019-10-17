@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 /**
  * 创建一个空白页组件
- * @param options 具体请查看blankPage-config参数配置:http://itest.dfzq.com.cn/document/fastman-v2/component/blankpage.html
+ * @param options 具体请查看文档
  */
 export function blankPage(options: {
   title?: string,

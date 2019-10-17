@@ -25,7 +25,7 @@ export default function confirm(text : string, onOkClick ?: ()=>void, onCancelCl
 
 /**
  * 声明式方式打开一个confirm确认框
- * @param options 具体options参数请查看http://itest.dfzq.com.cn/document/fastman-v2/component/confirm.html
+ * @param options 具体options参数请查看文档
  */
 export default function confirm(options : {
   text: string,

@@ -25,7 +25,7 @@ export function closeToast(instance: ZeptoCollection): void;
 
 /**
  * 声明式方式关闭一个toast弹出式提示
- * @param options 具体options参数请查看http://itest.dfzq.com.cn/document/fastman-v2/component/toast.html
+ * @param options 具体options参数请查看文档
  */
 export function toast(options: {
   text: string,

@@ -28,7 +28,7 @@ export default function alert(text : string, allowClose ?: boolean) : void;
 
 /**
  * 声明式方式打开一个alert提示框
- * @param options 具体options参数请查看http://itest.dfzq.com.cn/document/fastman-v2/component/alert.html
+ * @param options 具体options参数请查看文档
  */
 export default function alert(options: {
   text: string,
