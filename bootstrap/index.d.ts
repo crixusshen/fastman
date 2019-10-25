@@ -21,8 +21,8 @@ declare type requestType = {
 export interface IEffect<T> {
 }
 export interface IMutation<T> {
-    updateModel: (data: T) => NestedReadonly<T>;
-    $updateModel: (data: T) => NestedReadonly<T>;
+    updateModel: (data: Partial<T>) => void;
+    $updateModel: (data: Partial<T>) => void;
 }
 export interface IAction<T> {
     router: {
@@ -32,8 +32,8 @@ export interface IAction<T> {
         destoryBlock: () => void;
     };
     model: {
-        setState: (state: NestedReadonly<T>) => void;
-        setObjectState: (state: NestedReadonly<T>) => void;
+        setState: (state: Partial<T>) => void;
+        setObjectState: (state: Partial<T>) => void;
     };
     saveSessionState: () => void;
     historyStack: {
