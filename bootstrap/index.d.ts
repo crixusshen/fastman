@@ -71,6 +71,9 @@ export interface IAction<T> {
             uri: string;
             locktype?: 0 | 1 | 2;
         }) => void;
+        dynamicLink: (options: {
+            url: string;
+        }) => void;
         push: (options: {
             title?: string;
             uri: string;
