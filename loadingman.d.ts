@@ -5,7 +5,10 @@
 /**
  * 打开一个loading加载指示器
  */
-export function showLoading(): void;
+export function showLoading(options?: {
+  text: string,
+  type: "loading" | "success"
+}): void;
 
 /**
  * 关闭一个loading加载指示器
