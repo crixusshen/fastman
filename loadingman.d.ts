@@ -7,7 +7,7 @@
  */
 export function showLoading(options?: {
   text: string,
-  type: "loading" | "success"
+  type?: "loading" | "success"
 }): void;
 
 /**
