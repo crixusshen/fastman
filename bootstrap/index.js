@@ -45,7 +45,8 @@ var Bootstrap = /** @class */ (function () {
             // JsBridge,
             coreman_1.ModelState,
             coreman_1.ImportAction(annotationman_1.container),
-            coreman_1.Container(annotationman_1.container)
+            coreman_1.Container(annotationman_1.container),
+            coreman_1.LoginFailureCompatible
         ];
         var impls = this.registerContainer();
         if (typeof impls === "object") {
