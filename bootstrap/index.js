@@ -5,6 +5,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 /*
  * @Author: shenzhiwei
@@ -12,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @Description: 基础启动程序
  */
 /// <reference path="../../libs/bootstrap/fast.d.ts" />
+var confirmman_1 = __importDefault(require("fastman/confirmman"));
 var OfflinePluginRuntime = require("offline-plugin/runtime");
 OfflinePluginRuntime.install({
     onInstalled: function () {
@@ -21,12 +25,27 @@ OfflinePluginRuntime.install({
         console.log("[sw]:onUpdating");
     },
     onUpdateReady: function () {
-        OfflinePluginRuntime.applyUpdate();
+        // applyUpdate()执行后会自动调用onUpdated函数，onUpdated内可进行刷新或关闭页面操作
+        // OfflinePluginRuntime.applyUpdate();
+        confirmman_1.default({
+            text: '该程序已更新，需要重启以使用最新功能',
+            okText: '重启',
+            cancelText: '不重启',
+            onOkClick: function () {
+                console.log("updateManagerAlert");
+                OfflinePluginRuntime.applyUpdate();
+            },
+            onCancelClick: function () { },
+        });
         console.log("[sw]:onUpdateReady");
     },
     onUpdated: function () {
         console.log("[sw]:onUpdated");
-        location.reload();
+        // location.reload();
+        if (window["WebViewJavascriptBridge"]) {
+            window["WebViewJavascriptBridge"].callHandler('back', {}, function (response) {
+            });
+        }
     }
 });
 var coreman_1 = require("fastman/coreman");
