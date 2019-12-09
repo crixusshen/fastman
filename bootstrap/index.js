@@ -15,8 +15,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @Description: 基础启动程序
  */
 /// <reference path="../../libs/bootstrap/fast.d.ts" />
+var config_1 = __importDefault(require("config"));
 var confirmman_1 = __importDefault(require("fastman/confirmman"));
+var loadingman_1 = require("fastman/loadingman");
+var tipman_1 = require("fastman/tipman");
+var alertman_1 = __importDefault(require("fastman/alertman"));
+var ua = navigator.userAgent;
+var isFromApp = !!ua.toLowerCase().match(/DFYJ/i);
 var OfflinePluginRuntime = require("offline-plugin/runtime");
+var updateManager = config_1.default.updateManager;
+var updateManagerDefault = {
+    text: "当前页面已更新，需要重新打开以使用最新功能",
+    okButton: "重新打开",
+    cancelButton: "取消",
+    forceUpdateText: this.text,
+    forceUpdateButton: "知道了",
+    quietDisappearStayTime: 3500,
+};
 OfflinePluginRuntime.install({
     onInstalled: function () {
         console.log("[sw]:onInstalled");
@@ -25,26 +40,50 @@ OfflinePluginRuntime.install({
         console.log("[sw]:onUpdating");
     },
     onUpdateReady: function () {
+        // 非APP直接使用none更新策略
+        if (!isFromApp) {
+            updateManager.type = "none";
+        }
         // applyUpdate()执行后会自动调用onUpdated函数，onUpdated内可进行刷新或关闭页面操作
-        // OfflinePluginRuntime.applyUpdate();
-        confirmman_1.default({
-            text: '该程序已更新，需要重启以使用最新功能',
-            okText: '重启',
-            cancelText: '不重启',
-            onOkClick: function () {
-                console.log("updateManagerAlert");
+        if (updateManager && (updateManager.type === "default" || updateManager.type == undefined)) {
+            confirmman_1.default({
+                text: updateManager.text || updateManagerDefault.text,
+                okText: updateManager.okButton || updateManagerDefault.okButton,
+                cancelText: updateManager.cancelButton || updateManagerDefault.cancelButton,
+                onOkClick: function () {
+                    OfflinePluginRuntime.applyUpdate();
+                },
+                onCancelClick: function () { },
+            });
+        }
+        else if (updateManager && updateManager.type === "quiet") {
+            OfflinePluginRuntime.applyUpdate();
+            tipman_1.tip({
+                content: updateManager.text || updateManagerDefault.text,
+                stayTime: updateManager.quietDisappearStayTime || updateManagerDefault.quietDisappearStayTime
+            });
+        }
+        else if (updateManager && updateManager.type === "none") {
+            OfflinePluginRuntime.applyUpdate();
+        }
+        else if (updateManager && updateManager.type === "forceUpdate") {
+            alertman_1.default(updateManager.forceUpdateText || updateManagerDefault.forceUpdateText, function () {
                 OfflinePluginRuntime.applyUpdate();
-            },
-            onCancelClick: function () { },
-        });
+            });
+        }
         console.log("[sw]:onUpdateReady");
     },
     onUpdated: function () {
         console.log("[sw]:onUpdated");
         // location.reload();
-        if (window["WebViewJavascriptBridge"]) {
-            window["WebViewJavascriptBridge"].callHandler('back', {}, function (response) {
-            });
+        if (isFromApp) { // 只有APP在特定策略下执行桥接后退指令
+            if (updateManager && (updateManager.type === "default" || updateManager.type === "forceUpdate" || updateManager.type == undefined)) {
+                if (window["WebViewJavascriptBridge"]) {
+                    loadingman_1.showLoading(); // 安卓端为异步，因此需要阻塞界面，防止后退过程中做其它UI操作
+                    window["WebViewJavascriptBridge"].callHandler('back', {}, function (response) {
+                    });
+                }
+            }
         }
     }
 });
