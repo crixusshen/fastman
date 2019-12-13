@@ -32,6 +32,7 @@ var updateManagerDefault = {
     forceUpdateButton: "知道了",
     quietDisappearStayTime: 3500,
 };
+var preventRepeatUpdateAlert = false; // 防止重复弹出alert
 OfflinePluginRuntime.install({
     onInstalled: function () {
         console.log("[sw]:onInstalled");
@@ -46,15 +47,21 @@ OfflinePluginRuntime.install({
         }
         // applyUpdate()执行后会自动调用onUpdated函数，onUpdated内可进行刷新或关闭页面操作
         if (updateManager && (updateManager.type === "default" || updateManager.type == undefined)) {
-            confirmman_1.default({
-                text: updateManager.text || updateManagerDefault.text,
-                okText: updateManager.okButton || updateManagerDefault.okButton,
-                cancelText: updateManager.cancelButton || updateManagerDefault.cancelButton,
-                onOkClick: function () {
-                    OfflinePluginRuntime.applyUpdate();
-                },
-                onCancelClick: function () { },
-            });
+            if (!preventRepeatUpdateAlert) {
+                preventRepeatUpdateAlert = true;
+                confirmman_1.default({
+                    text: updateManager.text || updateManagerDefault.text,
+                    okText: updateManager.okButton || updateManagerDefault.okButton,
+                    cancelText: updateManager.cancelButton || updateManagerDefault.cancelButton,
+                    onOkClick: function () {
+                        OfflinePluginRuntime.applyUpdate();
+                        preventRepeatUpdateAlert = false;
+                    },
+                    onCancelClick: function () {
+                        preventRepeatUpdateAlert = false;
+                    },
+                });
+            }
         }
         else if (updateManager && updateManager.type === "quiet") {
             OfflinePluginRuntime.applyUpdate();
@@ -67,9 +74,13 @@ OfflinePluginRuntime.install({
             OfflinePluginRuntime.applyUpdate();
         }
         else if (updateManager && updateManager.type === "forceUpdate") {
-            alertman_1.default(updateManager.forceUpdateText || updateManagerDefault.forceUpdateText, function () {
-                OfflinePluginRuntime.applyUpdate();
-            });
+            if (!preventRepeatUpdateAlert) {
+                preventRepeatUpdateAlert = true;
+                alertman_1.default(updateManager.forceUpdateText || updateManagerDefault.forceUpdateText, function () {
+                    OfflinePluginRuntime.applyUpdate();
+                    preventRepeatUpdateAlert = false;
+                });
+            }
         }
         console.log("[sw]:onUpdateReady");
     },
