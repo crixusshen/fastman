@@ -85,6 +85,7 @@ export interface IAction<T> {
             type?: number;
             rightButtonTitle?: string;
             onRightButtonPress?: () => void;
+            rightButtonIcon?: string;
             isShowBackButton?: boolean;
         }) => void;
         notify: <T>(options: {
