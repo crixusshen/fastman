@@ -30,6 +30,10 @@ export interface IAction<T> {
         back: () => void;
         block: (callback: () => void) => void;
         destoryBlock: () => void;
+        needBlock: (options: {
+            routerKey: string;
+            createHrefProxyMethod: any;
+        }) => void;
     };
     model: {
         setState: (state: Partial<T>) => void;

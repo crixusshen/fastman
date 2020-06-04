@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ModelService = void 0;
 /*
  * @Author: shenzhiwei
  * @Date: 2019-08-08 13:14:12
