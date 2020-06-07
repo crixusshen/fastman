@@ -34,5 +34,6 @@ export default function alert(options: {
   text: string,
   title?: string,
   onClick?: ()=>void,
-  allowClose?: boolean
+  allowClose?: boolean,
+  modalButtonOk?: string
 }): void;
