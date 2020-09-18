@@ -11,15 +11,16 @@
 export default function datetimepicker(selector: string, options?: {
   // cols: Array<colsType>,
   toolbarTemplate?: string,
-  value?: Array<string>,
+  value?: Array<string | number>,
   rotateEffect?: boolean,
   inputReadOnly?: boolean,
   cssClass?: string,
-  // onChange?: (Picker, value, displayValue) => void,
+  onChange?: (Picker, value, displayValue) => void,
   onOpen?: (Picker) => void,
   onClose?: (Picker) => void,
   formatValue?: (Picker, value, displayValue) => void,
-  updateValue?: boolean
+  updateValue?: boolean,
+  callback?: (Picker, value, displayValue) => void
 }, needTime?: boolean);
 
 /**

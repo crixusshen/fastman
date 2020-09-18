@@ -34,71 +34,97 @@ var updateManagerDefault = {
     quietDisappearStayTime: 3500,
 };
 var preventRepeatUpdateAlert = false; // 防止重复弹出alert
-OfflinePluginRuntime.install({
-    onInstalled: function () {
-        console.log("[sw]:onInstalled");
-    },
-    onUpdating: function () {
-        console.log("[sw]:onUpdating");
-    },
-    onUpdateReady: function () {
-        // 非APP直接使用none更新策略
-        if (!isFromApp) {
-            updateManager.type = "none";
-        }
-        // applyUpdate()执行后会自动调用onUpdated函数，onUpdated内可进行刷新或关闭页面操作
-        if (updateManager && (updateManager.type === "default" || updateManager.type == undefined)) {
-            if (!preventRepeatUpdateAlert) {
-                preventRepeatUpdateAlert = true;
-                confirmman_1.default({
-                    text: updateManager.text || updateManagerDefault.text,
-                    okText: updateManager.okButton || updateManagerDefault.okButton,
-                    cancelText: updateManager.cancelButton || updateManagerDefault.cancelButton,
-                    onOkClick: function () {
-                        OfflinePluginRuntime.applyUpdate();
-                        preventRepeatUpdateAlert = false;
-                    },
-                    onCancelClick: function () {
-                        preventRepeatUpdateAlert = false;
-                    },
-                });
-            }
-        }
-        else if (updateManager && updateManager.type === "quiet") {
-            OfflinePluginRuntime.applyUpdate();
-            tipman_1.tip({
-                content: updateManager.text || updateManagerDefault.text,
-                stayTime: updateManager.quietDisappearStayTime || updateManagerDefault.quietDisappearStayTime
+// window.swOfflineSwitch 由应用层 webpack html plugin 进行注入，可通过 target 来进行配置
+// @ts-ignore
+if (window.swOfflineSwitch) { // sw 降级方案，appcache则可通过删除 manifest 文件来降级
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistration().then(function (registration) {
+            registration && registration.unregister().then(function (swOfflineFlag) {
+                if (swOfflineFlag) {
+                    console.log('[fastman-sw]:unRegister successful!');
+                    location.reload();
+                }
+                else {
+                    console.log('[fastman-sw]:unRegister failure!');
+                }
             });
-        }
-        else if (updateManager && updateManager.type === "none") {
-            OfflinePluginRuntime.applyUpdate();
-        }
-        else if (updateManager && updateManager.type === "forceUpdate") {
-            if (!preventRepeatUpdateAlert) {
-                preventRepeatUpdateAlert = true;
-                alertman_1.default(updateManager.forceUpdateText || updateManagerDefault.forceUpdateText, function () {
-                    OfflinePluginRuntime.applyUpdate();
-                    preventRepeatUpdateAlert = false;
-                });
+        });
+    }
+}
+else {
+    OfflinePluginRuntime.install({
+        onInstalled: function () {
+            console.log("[fastman-sw]:onInstalled");
+        },
+        onUpdating: function () {
+            console.log("[fastman-sw]:onUpdating");
+        },
+        onUpdateReady: function () {
+            // 非APP直接使用none更新策略
+            if (!isFromApp) {
+                updateManager.type = "none";
             }
-        }
-        console.log("[sw]:onUpdateReady");
-    },
-    onUpdated: function () {
-        console.log("[sw]:onUpdated");
-        // location.reload();
-        if (isFromApp) { // 只有APP在特定策略下执行桥接后退指令
-            if (updateManager && (updateManager.type === "default" || updateManager.type === "forceUpdate" || updateManager.type == undefined)) {
-                if (window["WebViewJavascriptBridge"]) {
-                    loadingman_1.showLoading(); // 安卓端为异步，因此需要阻塞界面，防止后退过程中做其它UI操作
-                    window["WebViewJavascriptBridge"].callHandler('back', {}, function (response) {
+            // applyUpdate()执行后会自动调用onUpdated函数，onUpdated内可进行刷新或关闭页面操作
+            if (updateManager && (updateManager.type === "default" || updateManager.type == undefined)) {
+                if (!preventRepeatUpdateAlert) {
+                    preventRepeatUpdateAlert = true;
+                    confirmman_1.default({
+                        text: updateManager.text || updateManagerDefault.text,
+                        okText: updateManager.okButton || updateManagerDefault.okButton,
+                        cancelText: updateManager.cancelButton || updateManagerDefault.cancelButton,
+                        onOkClick: function () {
+                            OfflinePluginRuntime.applyUpdate();
+                            preventRepeatUpdateAlert = false;
+                        },
+                        onCancelClick: function () {
+                            preventRepeatUpdateAlert = false;
+                        },
                     });
                 }
             }
+            else if (updateManager && updateManager.type === "quiet") {
+                OfflinePluginRuntime.applyUpdate();
+                tipman_1.tip({
+                    content: updateManager.text || updateManagerDefault.text,
+                    stayTime: updateManager.quietDisappearStayTime || updateManagerDefault.quietDisappearStayTime
+                });
+            }
+            else if (updateManager && updateManager.type === "none") {
+                OfflinePluginRuntime.applyUpdate();
+            }
+            else if (updateManager && updateManager.type === "forceUpdate") {
+                if (!preventRepeatUpdateAlert) {
+                    preventRepeatUpdateAlert = true;
+                    alertman_1.default(updateManager.forceUpdateText || updateManagerDefault.forceUpdateText, function () {
+                        OfflinePluginRuntime.applyUpdate();
+                        preventRepeatUpdateAlert = false;
+                    });
+                }
+            }
+            console.log("[fastman-sw]:onUpdateReady");
+        },
+        onUpdated: function () {
+            console.log("[fastman-sw]:onUpdated");
+            // 无感知的情况下自动刷新当前浏览器
+            if (updateManager && (updateManager.type === "none" || updateManager.type === "quiet")) {
+                location.reload();
+            }
+            // 否则则依赖app内的桥接帮助用户主动进行功能退出（强制性交互）
+            if (isFromApp) { // 只有APP在特定策略下执行桥接后退指令
+                if (updateManager && (updateManager.type === "default" || updateManager.type === "forceUpdate" || updateManager.type == undefined)) {
+                    if (window["WebViewJavascriptBridge"]) {
+                        loadingman_1.showLoading(); // 安卓端为异步，因此需要阻塞界面，防止后退过程中做其它UI操作
+                        window["WebViewJavascriptBridge"].callHandler('back', {}, function (response) {
+                        });
+                    }
+                }
+            }
+        },
+        onUpdateFailed: function () {
+            console.log("[fastman-sw]:onUpdateFailed");
         }
-    }
-});
+    });
+}
 var coreman_1 = require("fastman/coreman");
 var annotationman_1 = require("fastman/annotationman");
 // T - Model Type

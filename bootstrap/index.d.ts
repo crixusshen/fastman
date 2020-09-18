@@ -74,6 +74,7 @@ export interface IAction<T> {
             title?: string;
             uri: string;
             locktype?: 0 | 1 | 2;
+            hideNavigationBar?: "0" | "1";
         }) => void;
         dynamicLink: (options: {
             url: string;
