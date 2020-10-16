@@ -107,7 +107,8 @@ else {
             console.log("[fastman-sw]:onUpdated");
             // 无感知的情况下自动刷新当前浏览器
             if (updateManager && (updateManager.type === "none" || updateManager.type === "quiet")) {
-                location.reload();
+                // v2.7.1 去除页面刷新机制，部分安卓机会刷新2次的问题目前无法解决
+                // location.reload();
             }
             // 否则则依赖app内的桥接帮助用户主动进行功能退出（强制性交互）
             if (isFromApp) { // 只有APP在特定策略下执行桥接后退指令
