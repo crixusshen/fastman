@@ -1,6 +1,6 @@
 {
   "name": "fastman2",
-  "version": "2.7.2",
+  "version": "2.7.3",
   "description": "a hybird app framework",
   "main": "index.js",
   "scripts": {
