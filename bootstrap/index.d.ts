@@ -85,6 +85,7 @@ export interface IAction<T> {
             locktype?: 0 | 1 | 2;
         }) => void;
         willAppear: (callback: () => void) => void;
+        willAppear2: (callback: () => void) => void;
         navigationBar: (options: {
             title: string;
             type?: number;
