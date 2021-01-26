@@ -88,6 +88,7 @@ export interface IAction<T> {
         willAppear2: (callback: () => void) => void;
         navigationBar: (options: {
             title: string;
+            subTitle?: string;
             type?: number;
             rightButtonTitle?: string;
             onRightButtonPress?: () => void;
